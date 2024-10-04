@@ -24,7 +24,7 @@ from datetime import datetime, timedelta
 
 def show_tasklist():
     if not tasklist:
-        print("Deine Aufgabenliste ist leer.")
+        print("Du hast keine Aufgaben.")
     else:
         print("Deine Aufgabenliste:")
         today = datetime.now().date()
@@ -40,3 +40,44 @@ def show_tasklist():
             if task['Priorität']:
                 task_str += f" [Priorität: {task['Priorität']}]"
             print(task_str)
+
+
+# Funktion zum löschen
+def remove_task():
+    if not tasklist:
+        print("Die Aufgabenliste ist leer.")
+    else:
+        print("Welche Aufgabe möchtest du entfernen?")
+        for idx, task in enumerate(tasklist, 1):
+            print(f"{idx}. {task['Aufgabe']}")
+        try:
+            choice = int(input("Bitte gib die Nummer der zu entfernenden Aufgabe ein: "))
+            if 1 <= choice <= len(tasklist):
+                removed_task = tasklist.pop(choice - 1)
+                print(f"Aufgabe '{removed_task['Aufgabe']}' wurde entfernt.")
+            else:
+                print("Ungültige Auswahl.")
+        except ValueError:
+            print("Bitte gib eine gültige Zahl ein.")
+
+
+def main():
+    while True:
+        print("\n----- Aufgabenliste -----")
+        print("1. Aufgabe hinzufügen")
+        print("2. Aufgaben anzeigen")
+        print("3. Aufgabe entfernen")
+        print("4. Programm beenden")
+        choice = input("Bitte wähle eine Option (1-4): ")
+        
+        if choice == "1":
+            add_task()
+        elif choice == "2":
+            show_tasklist()
+        elif choice == "3":
+            remove_task()
+        elif choice == "4":
+            print("Programm wird beendet. Auf Wiedersehen!")
+            break
+        else:
+            print("Ungültige Auswahl. Bitte wähle 1, 2, 3 oder 4.")
