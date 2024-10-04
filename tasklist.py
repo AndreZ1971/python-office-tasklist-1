@@ -81,3 +81,7 @@ def main():
             break
         else:
             print("Ungültige Auswahl. Bitte wähle 1, 2, 3 oder 4.")
+
+
+if __name__ == "__main__":
+    main()
