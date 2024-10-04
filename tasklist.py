@@ -83,5 +83,73 @@ def main():
             print("Ungültige Auswahl. Bitte wähle 1, 2, 3 oder 4.")
 
 
+def show_tasklist():
+    if not tasklist:
+        print("Deine Aufgabenliste ist leer.")
+    else:
+        print("Deine Aufgabenliste:")
+        # Sortierfunktion
+        priority_order = {"hoch": 1, "mittel": 2, "niedrig": 3}
+        sorted_tasklist = sorted(tasklist, key=lambda x: priority_order.get(x['Priorität'], 2))
+        today = datetime.now().date()
+        for task in sorted_tasklist:
+            # (sonst keine änderungen)
+            # ...
+
+import csv
+
+def export_tasklist():
+    if not tasklist:
+        print("Die Aufgabenliste ist leer. Nichts zu exportieren.")
+    else:
+        with open('aufgabenliste.csv', 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['Aufgabe', 'Fälligkeitsdatum', 'Priorität']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for task in tasklist:
+                writer.writerow(task)
+        print("Aufgabenliste wurde erfolgreich in 'aufgabenliste.csv' exportiert.")
+
+
+def main():
+    while True:
+        print("\n----- Aufgabenliste -----")
+        print("1. Aufgabe hinzufügen")
+        print("2. Aufgabenliste anzeigen")
+        print("3. Aufgabe entfernen")
+        print("4. Aufgabenliste exportieren")
+        print("5. Programm beenden")
+        choice = input("Bitte wähle eine Option (1-5): ")
+        
+        if choice == "1":
+            add_task()
+        elif choice == "2":
+            show_tasklist()
+        elif choice == "3":
+            remove_task()
+        elif choice == "4":
+            export_tasklist()
+        elif choice == "5":
+            print("Programm wird beendet. Auf Wiedersehen!")
+            break
+        else:
+            print("Ungültige Auswahl. Bitte wähle zwischen 1 und 5.")
+
+def check_due_tasks():
+    today = datetime.now().date()
+    due_tasks = [task for task in tasklist if task['Fälligkeitsdatum'] and datetime.strptime(task['Fälligkeitsdatum'], "%d.%m.%Y").date() == today]
+    if due_tasks:
+        print("\n*** Benachrichtigung: Folgende Aufgaben sind heute fällig! ***")
+        for task in due_tasks:
+            print(f"- {task['Aufgabe']} [Priorität: {task['Priorität']}]")
+
+
+def main():
+    check_due_tasks()
+    while True:
+        # (Rest des Codes)
+
+
+
 if __name__ == "__main__":
     main()
