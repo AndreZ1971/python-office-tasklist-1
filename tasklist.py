@@ -1,7 +1,7 @@
-# Aufgabenliste initialisieren
+
 tasklist = []
 
-# Funktion zum Hinzufügen einer Aufgabe
+# Funktionen beginnen mit def
 def add_task():
     task = input("Bitte gib eine Aufgabe ein, die in deiner Aufgabenliste hinzugefügt werden soll: ")
     due_date = input("Bitte gib ein Fälligkeitsdatum ein (TT.MM.JJJJ) oder drücke Enter, um keins anzugeben: ")
